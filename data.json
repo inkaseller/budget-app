@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1775417407716,
+    "tipo": "ingreso",
+    "monto": 1500,
+    "descripcion": "Sueldo"
+  },
+  {
+    "id": 1775417427999,
+    "tipo": "ingreso",
+    "monto": 150,
+    "descripcion": "Ventas"
+  },
+  {
+    "id": 1775417443759,
+    "tipo": "ingreso",
+    "monto": 250,
+    "descripcion": "Alquiler"
+  },
+  {
+    "id": 1775417458319,
+    "tipo": "egreso",
+    "monto": 500,
+    "descripcion": "Universidad"
+  },
+  {
+    "id": 1775417471232,
+    "tipo": "egreso",
+    "monto": 300,
+    "descripcion": "Movilidad"
+  },
+  {
+    "id": 1775417491328,
+    "tipo": "egreso",
+    "monto": 300,
+    "descripcion": "Comida"
+  },
+  {
+    "id": 1775417591298,
+    "tipo": "egreso",
+    "monto": 400,
+    "descripcion": "Internet"
+  },
+  {
+    "id": 1775417966083,
+    "tipo": "ingreso",
+    "monto": 1000,
+    "descripcion": "Bono"
+  },
+  {
+    "id": 1775417984555,
+    "tipo": "egreso",
+    "monto": 1500,
+    "descripcion": "Tarjeta de Credito"
+  }
+]

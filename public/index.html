@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Control Presupuesto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>💰 Control Presupuestario</h1>
+
+        <div class="card">
+            <form id="form">
+                <select id="tipo">
+                    <option value="ingreso">Ingreso</option>
+                    <option value="egreso">Egreso</option>
+                </select>
+
+                <input type="number" id="monto" placeholder="Monto" required>
+                <input type="text" id="descripcion" placeholder="Descripción">
+
+                <button type="submit">Agregar</button>
+            </form>
+        </div>
+
+        <div class="card balance">
+            <h2>Balance: S/ <span id="balance">0</span></h2>
+        </div>
+
+        <div class="card">
+            <h3>Movimientos</h3>
+            <ul id="lista"></ul>
+        </div>
+
+        <div class="card">
+            <h3>Resumen</h3>
+            <canvas id="grafico"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
