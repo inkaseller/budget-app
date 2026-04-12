@@ -1,44 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Control Presupuesto</title>
+    <title>Dashboard Presupuesto</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>💰 Control Presupuestario</h1>
+<div class="container">
 
-        <div class="card">
-            <form id="form">
-                <select id="tipo">
-                    <option value="ingreso">Ingreso</option>
-                    <option value="egreso">Egreso</option>
-                </select>
+    <h1>📊 Dashboard de Control Presupuestario</h1>
 
-                <input type="number" id="monto" placeholder="Monto" required>
-                <input type="text" id="descripcion" placeholder="Descripción">
+    <div class="card">
+        <form id="form">
+            <select id="tipo">
+                <option value="ingreso">Ingreso</option>
+                <option value="egreso">Egreso</option>
+            </select>
 
-                <button type="submit">Agregar</button>
-            </form>
-        </div>
+            <input type="number" id="monto" placeholder="Monto" required>
+            <input type="text" id="descripcion" placeholder="Concepto">
 
-        <div class="card balance">
-            <h2>Balance: S/ <span id="balance">0</span></h2>
-        </div>
-
-        <div class="card">
-            <h3>Movimientos</h3>
-            <ul id="lista"></ul>
-        </div>
-
-        <div class="card">
-            <h3>Resumen</h3>
-            <canvas id="grafico"></canvas>
-        </div>
+            <button type="submit">Agregar</button>
+        </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>
+    <!-- TABLA PRINCIPAL -->
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>INGRESO</th>
+                    <th>MONTO</th>
+                    <th>EGRESO</th>
+                    <th>MONTO</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabla-body"></tbody>
+
+            <tfoot>
+                <tr>
+                    <td><strong>Subtotal</strong></td>
+                    <td id="subtotal-ingresos">0</td>
+                    <td><strong>Subtotal</strong></td>
+                    <td id="subtotal-egresos">0</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>TOTAL</strong></td>
+                    <td id="total">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="card">
+        <canvas id="grafico"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>

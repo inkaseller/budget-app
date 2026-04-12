@@ -52,5 +52,29 @@
     "tipo": "egreso",
     "monto": 1500,
     "descripcion": "Tarjeta de Credito"
+  },
+  {
+    "id": 1776024923202,
+    "tipo": "ingreso",
+    "monto": 20,
+    "descripcion": "Viaticos"
+  },
+  {
+    "id": 1776024949664,
+    "tipo": "ingreso",
+    "monto": 100,
+    "descripcion": "Alquiler de Equipos"
+  },
+  {
+    "id": 1776024991130,
+    "tipo": "ingreso",
+    "monto": 800,
+    "descripcion": "Utiles de Oficina"
+  },
+  {
+    "id": 1776025032227,
+    "tipo": "egreso",
+    "monto": 50,
+    "descripcion": "Medicinas"
   }
 ]

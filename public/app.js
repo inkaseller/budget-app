@@ -1,34 +1,53 @@
 const form = document.getElementById('form');
-const lista = document.getElementById('lista');
-const balanceEl = document.getElementById('balance');
+const tablaBody = document.getElementById('tabla-body');
 
-let movimientos = [];
 let chart;
 
 async function cargarDatos() {
     const res = await fetch('/api/movimientos');
-    movimientos = await res.json();
-    render();
+    const movimientos = await res.json();
+    render(movimientos);
 }
 
-function render() {
-    lista.innerHTML = '';
-    let ingresos = 0;
-    let egresos = 0;
+function render(movimientos) {
 
-    movimientos.forEach(m => {
-        const li = document.createElement('li');
-        li.textContent = `${m.tipo} - S/ ${m.monto} - ${m.descripcion}`;
-        lista.appendChild(li);
+    tablaBody.innerHTML = '';
 
-        if (m.tipo === 'ingreso') ingresos += m.monto;
-        else egresos += m.monto;
-    });
+    let ingresos = movimientos.filter(m => m.tipo === 'ingreso');
+    let egresos = movimientos.filter(m => m.tipo === 'egreso');
 
-    const balance = ingresos - egresos;
-    balanceEl.textContent = balance;
+    let max = Math.max(ingresos.length, egresos.length);
 
-    renderChart(ingresos, egresos);
+    let totalIngresos = 0;
+    let totalEgresos = 0;
+
+    for (let i = 0; i < max; i++) {
+
+        let ingreso = ingresos[i];
+        let egreso = egresos[i];
+
+        let fila = `
+            <tr>
+                <td>${ingreso ? ingreso.descripcion : ''}</td>
+                <td>${ingreso ? ingreso.monto : ''}</td>
+                <td>${egreso ? egreso.descripcion : ''}</td>
+                <td>${egreso ? egreso.monto : ''}</td>
+            </tr>
+        `;
+
+        tablaBody.innerHTML += fila;
+
+        if (ingreso) totalIngresos += ingreso.monto;
+        if (egreso) totalEgresos += egreso.monto;
+    }
+
+    document.getElementById('subtotal-ingresos').textContent = totalIngresos;
+    document.getElementById('subtotal-egresos').textContent = totalEgresos;
+
+    let total = totalIngresos - totalEgresos;
+    document.getElementById('total').textContent = total;
+
+    renderChart(totalIngresos, totalEgresos);
 }
 
 function renderChart(ingresos, egresos) {
@@ -37,7 +56,7 @@ function renderChart(ingresos, egresos) {
     if (chart) chart.destroy();
 
     chart = new Chart(ctx, {
-        type: 'pie',
+        type: 'bar',
         data: {
             labels: ['Ingresos', 'Egresos'],
             datasets: [{
