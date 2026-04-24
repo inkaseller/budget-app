@@ -1,61 +1,61 @@
 const express = require('express');
-const fs = require('fs');
+const path = require('path');
+const { sequelize, Movimiento } = require('./models');
+
 const app = express();
 
+// Middleware
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-const DATA_FILE = 'data.json';
+// =======================
+// 📌 RUTAS API
+// =======================
 
-// Leer datos
-function readData() {
-    const data = fs.readFileSync(DATA_FILE);
-    return JSON.parse(data);
-}
-
-// Guardar datos
-function writeData(data) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-}
-
-// Obtener movimientos
-app.get('/api/movimientos', (req, res) => {
+// Obtener todos los movimientos
+app.get('/api/movimientos', async (req, res) => {
     try {
-        const data = readData();
-        res.json(data);
+        const movimientos = await Movimiento.findAll({
+            order: [['createdAt', 'ASC']]
+        });
+        res.json(movimientos);
     } catch (error) {
-        res.status(500).json({ error: 'Error al leer datos' });
+        res.status(500).json({ error: 'Error al obtener datos' });
     }
 });
 
-// Agregar movimiento
-app.post('/api/movimientos', (req, res) => {
+// Crear nuevo movimiento
+app.post('/api/movimientos', async (req, res) => {
     try {
         const { tipo, monto, descripcion } = req.body;
 
+        // Validación básica
         if (!tipo || !monto) {
-            throw new Error("Datos inválidos");
+            return res.status(400).json({ error: 'Datos incompletos' });
         }
 
-        const data = readData();
-
-        const nuevo = {
-            id: Date.now(),
+        const nuevo = await Movimiento.create({
             tipo,
             monto,
             descripcion
-        };
-
-        data.push(nuevo);
-        writeData(data);
+        });
 
         res.json(nuevo);
-
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Error al guardar datos' });
     }
 });
 
-app.listen(3000, () => {
-    console.log("Servidor en http://localhost:3000");
+// =======================
+// 🚀 INICIAR SERVIDOR
+// =======================
+
+const PORT = 3000;
+
+sequelize.sync().then(() => {
+    console.log('📦 Base de datos conectada');
+
+    app.listen(PORT, () => {
+        console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    });
 });

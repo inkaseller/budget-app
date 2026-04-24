@@ -2,12 +2,12 @@ name: CI/CD Budget App
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/dashboard" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -23,5 +23,8 @@ jobs:
     - name: Instalar dependencias
       run: npm install
 
-    - name: Verificar ejecución
+    - name: Ejecutar pruebas
+      run: npm test
+
+    - name: Verificar servidor
       run: node server.js & sleep 5
